@@ -4,3 +4,115 @@
 아침에사과
 야왜수영장
 고무고무 게틀링건
+#include <Altino.h>
+Altino sensor;
+void Auto(int dir=0, int th=30, int sp=300, int bsp=-300); // 자율주행 함수
+unsigned long oldtime=0;
+
+void setup() {
+Open();  
+
+
+
+}
+
+void loop() {
+ while(1){
+    if(sensor.IR[6]>200){
+      break;
+    }
+
+  }
+   oldtime=millis();
+    while(1){
+    Auto(0);
+    if(sensor.CDS < 100 && (millis()-oldtime) > 3000){
+
+      break;
+    }
+    
+   }
+    Go(0,0);
+    delay(150);
+    
+    led(0x0003);delay(500);
+    led(0xC000);delay(500);
+    led(0x00A0);delay(500);
+    led(0x0050);delay(500);
+    led(0);
+
+     oldtime=millis();
+         while(1){
+    Auto(1);
+    if(sensor.CDS < 100 && (millis()-oldtime) > 2000){
+
+      break;
+    }
+    
+ 
+    }
+  while(1){
+    Auto(1);
+    if(sensor.IR[1]>10 && sensor.IR[2]>10 && sensor.IR[3]>13)break;
+  }
+        
+    
+      Go(0,0);
+      Sound(44); delay(300);
+      Sound(0); delay(100);
+      Sound(44); delay(400);
+
+      Sound(46); delay(300);
+      Sound(0); delay(100);
+      Sound(46); delay(400);
+
+      Sound(44); delay(300);
+      Sound(0); delay(100);
+      Sound(44); delay(400);
+      Sound(41); delay(800);
+
+      Sound(44); delay(300);
+      Sound(0); delay(100);
+      Sound(44); delay(400);
+
+      Sound(41); delay(300);
+      Sound(0); delay(100);
+      Sound(41); delay(400);
+
+      Sound(39); delay(1200);
+      Sound(0);
+}
+
+
+void Auto(int dir=0, int th=30, int sp=300, int bsp=-300) //자율주행 함수
+{
+  if(sensor.IR[1]>th && sensor.IR[2]>th && sensor.IR[3]>th){
+    if(dir==0){
+      Go(bsp,bsp);Steering(127);Display(6);
+    }
+    else {
+      Go(bsp,bsp);Steering(-127);Display(128+4);
+    }    
+  }
+  else if(sensor.IR[1]>120 && sensor.IR[2]>th){
+    Go(bsp,bsp);Steering(-127);Display(128+4);//왼쪽 뒤
+  }
+  else if(sensor.IR[1]>th && sensor.IR[2]>th){
+    Go(sp,sp);Steering(127);Display(5);//오른쪽 많이
+  }
+  else if(sensor.IR[2]>th && sensor.IR[3]>120){
+    Go(bsp,bsp);Steering(127);Display(6);//오른쪽 뒤
+  }
+  else if(sensor.IR[2]>th && sensor.IR[3]>th){
+    Go(sp,sp);Steering(-127);Display(128+5);
+  }
+  else if(sensor.IR[1]>th){
+    Go(sp,sp);Steering(64);Display(4);//오른쪽 조금
+  }
+  else if(sensor.IR[3]>th){
+    Go(sp,sp);Steering(-64);Display(128+6);
+  }
+  else {
+    Go(sp,sp);Steering(0);Display(3);//3전진
+  }  
+}
