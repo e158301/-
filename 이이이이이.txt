@@ -116,3 +116,5 @@ void Auto(int dir=0, int th=30, int sp=300, int bsp=-300) //자율주행 함수
     Go(sp,sp);Steering(0);Display(3);//3전진
   }  
 }
+
+잠을 자자
