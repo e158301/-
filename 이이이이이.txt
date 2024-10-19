@@ -118,3 +118,4 @@ void Auto(int dir=0, int th=30, int sp=300, int bsp=-300) //자율주행 함수
 }
 
 잠을 자자
+기계신 클레이 탐슨
